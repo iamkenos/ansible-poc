@@ -31,11 +31,11 @@ jobs:
         run: npm run test
       - name: Generate report
         if: always()
-        run: npm run report
+        run: npm run report-pages
       - name: Serve report
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: results/allure/html/
+          publish_dir: ./report
           publish_branch: report
