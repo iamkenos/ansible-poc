@@ -1,0 +1,14 @@
+{
+  "name": "ansible-poc",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "pretest": "playwright install --with-deps chromium",
+    "test": "cucumber-js -c cucumber.js || exit 0",
+    "posttest": "npm run report",
+    "report": "allure generate --single-file results/allure/ -c -o results/allure/html/"
+  },
+  "dependencies": {
+    "@iamkenos/kyoko": "*"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "checkJs": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "build",
+    "skipLibCheck": true,
+    "target": "ESNext",
+    "noImplicitOverride": true,
+    "paths": {
+      "~": ["./"],
+      "~/*": ["./*"]
+    }
+  },
+  "include": ["./**/**.ts", "./**/**.js"]
+}
