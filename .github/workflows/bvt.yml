@@ -1,0 +1,41 @@
+name: Business Verification Tests
+
+on:
+  push:
+
+  workflow_dispatch:
+
+jobs:
+  business_verification_tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Determine node version
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvm
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
+      - name: Upgrade RHEL boxes
+        run: echo "upgrading RHEL boxes..."
+      - name: Install BVT dependencies
+        run: |
+          npm install
+          npm run pretest
+      - name: Execute BVT
+        run: npm run test
+      - name: Generate report
+        if: always()
+        run: npm run report
+      - name: Serve report
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: results/allure/html/
+          publish_branch: report

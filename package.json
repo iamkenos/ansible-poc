@@ -4,8 +4,7 @@
   "description": "",
   "scripts": {
     "pretest": "playwright install --with-deps chromium",
-    "test": "cucumber-js -c cucumber.js || exit 0",
-    "posttest": "npm run report",
+    "test": "cucumber-js -c cucumber.js",
     "report": "allure generate --single-file results/allure/ -c -o results/allure/html/"
   },
   "dependencies": {
