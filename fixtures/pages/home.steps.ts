@@ -1,19 +1,18 @@
-import { defineParameterType, Then } from "@cucumber/cucumber";
-import { Context as BaseContext } from "@iamkenos/kyoko";
+import { Then, Given } from "@cucumber/cucumber";
+import { Context } from "@iamkenos/kyoko";
 
 import { HomePage } from "./home.page";
 
-export interface Parameters {
-}
-
-/** Extend the `Context` type so you can access inherited properties from `this`. */
-export interface Context extends BaseContext<Parameters> {
-  homePage: HomePage;
-}
+Given(
+  "the {page_object} page is opened",
+  async function (this: Context, page: HomePage) {
+    await page.navigate();
+  }
+);
 
 Then(
   "the {page_object} page theme {should_or_should_not} be {input_string}",
-  async function(this: Context, page: HomePage, not: boolean, theme: string) {
+  async function (this: Context, page: HomePage, not: boolean, theme: string) {
     await page.header().expect().themeEnabled(theme, { not }).poll();
   }
 );

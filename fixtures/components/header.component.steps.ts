@@ -1,17 +1,24 @@
 import { defineParameterType, When } from "@cucumber/cucumber";
-import { Header } from "./header.component";
+import { Context } from "@iamkenos/kyoko";
 
-import type { Context } from "~/fixtures/pages/home.steps";
+import { Header } from "./header.component";
 
 defineParameterType({
   name: "header_component",
-  regexp: /header component/,
-  transformer(this: Context) { return this.page.component(Header); }
+  regexp: /header/,
+  transformer(this: Context) { return this.page.component(Header); },
 });
 
 When(
-  "the {header_component} {input_string} theme is clicked",
-  async function(this: Context, component: Header, theme: string) {
+  "the {input_string} theme is selected from the {header_component} theme selector",
+  async function (this: Context, theme: string, component: Header) {
     await component.selectTheme(theme);
+  }
+);
+
+When(
+  "the {input_string} query string is searched from the {header_component} search bar",
+  async function (this: Context, query: string, component: Header) {
+    await component.search(query);
   }
 );

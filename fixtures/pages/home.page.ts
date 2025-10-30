@@ -1,8 +1,7 @@
 import { PageObject } from "@iamkenos/kyoko";
 import { Header } from "~/fixtures/components/header.component";
-import type { Parameters } from "./home.steps";
 
-export class HomePage extends PageObject<Parameters> {
+export class HomePage extends PageObject {
   url = "/";
   title = "Services Australia";
 

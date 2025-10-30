@@ -22,7 +22,8 @@
         "PARALLEL": "${input:parallel}",
         "TAGS": "${input:tags}",
         "PATHS": "${relativeFile}"
-      }
+      },
+      "postDebugTask": "npm: report"
     }
   ],
   "inputs": [

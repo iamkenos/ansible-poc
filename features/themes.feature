@@ -1,10 +1,8 @@
 Feature: Themes
 
-  Background:
-    Given I am on the "home" page
-
-  Scenario Outline: S01: Switch to theme: <theme>
-    When the header component "<theme>" theme is clicked
+  Scenario Outline: S01: Switch to <theme> theme
+    Given the "home" page is opened
+    When the "<theme>" theme is selected from the header theme selector
     Then the "home" page theme should be "<theme>"
 
     Examples:

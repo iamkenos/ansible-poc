@@ -9,8 +9,19 @@ export class Header extends Component {
   themeSelector = () => this.locator("//button[@role='switch']").first();
   themeSelectorBtn = (theme: string) => this.themeSelector().locator(`//*[@data-lit-dark-mode-toggle-button='${theme}']`);
 
+  searchToggle = () => this.locator("//*[@id='lit-search-toggle']");
+  searchModal = () => this.locator("//*[@id='lit-search-modal']");
+  searchInput = () => this.searchModal().locator("//*[@name='search']");
+  searchBtn = () => this.searchModal().locator("//button", { hasText: "Search" });
+
   async selectTheme(theme: string) {
     await this.themeSelectorBtn(theme).first().click()
+  }
+
+  async search(query: string) {
+    await this.searchToggle().click();
+    await this.searchInput().fill(query);
+    await this.searchBtn().click();
   }
 
   override expect(options?: ExpectedConditionOptions) {
