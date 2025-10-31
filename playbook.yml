@@ -1,0 +1,43 @@
+- name: Upgrade managed RHEL nodes
+  hosts: localhost
+  gather_facts: false
+  vars:
+    managed_nodes:
+      - node_1
+      - node_2
+      - node_3
+
+  tasks:
+    - name: "1. Shut down services..."
+      ansible.builtin.debug:
+        msg: "→ ⛔ {{ item }} :: systemctl stop ..."
+      delegate_to: "{{ item }}"
+      loop: "{{ managed_nodes }}"
+
+    - name: "2. Upgrade packages..."
+      ansible.builtin.pause:
+        seconds: 2
+        prompt: "→ ⏳ {{ item }} :: apt update && apt upgrade ..."
+      delegate_to: "{{ item }}"
+      loop: "{{ managed_nodes }}"
+
+    - name: "3. Start up services..."
+      ansible.builtin.debug:
+        msg: "→ 🚀 {{ item }} :: systemctl start ..."
+      delegate_to: "{{ item }}"
+      loop: "{{ managed_nodes }}"
+
+    - name: "4. Execute BVT..."
+      ansible.builtin.shell: npm run test-ci
+      ignore_errors: true
+      changed_when: false
+      register: bvt_result
+
+    - name: "5. Generate BVT report..."
+      ansible.builtin.shell: npm run report-ci
+      changed_when: false
+
+    - name: "6. Throw on BVT failure..."
+      ansible.builtin.fail:
+        msg: "→ ❌ [Execute BVT] failed with exit code {{ bvt_result.rc }}. See report for details: https://iamkenos.github.io/ansible-poc"
+      when: bvt_result.rc != 0

@@ -21,17 +21,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
-      - name: Upgrade RHEL boxes
-        run: echo "upgrading RHEL boxes..."
-      - name: Install BVT dependencies
+      - name: Install playbook dependencies
         run: |
+          pip install ansible
           npm install
           npm run pretest
-      - name: Execute BVT
-        run: npm run test
-      - name: Generate report
-        if: always()
-        run: npm run report-ci
+      - name: Run playbook
+        run: ansible-playbook playbook.yml -i inventory.ini
       - name: Serve report
         if: always()
         uses: peaceiris/actions-gh-pages@v4
