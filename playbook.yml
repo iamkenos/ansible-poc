@@ -28,14 +28,18 @@
       loop: "{{ managed_nodes }}"
 
     - name: "4. Execute BVT..."
-      ansible.builtin.shell: npm run test-ci
+      delegate_to: localhost
+      become: false
       ignore_errors: true
       changed_when: false
+      vars:
+        ansible_connection: local
+      command: cmd.exe /c tcshell -workspace "C:\<PATH_TO>\Tosca_Workspaces\First Steps\First Steps.tws" "C:\<PATH_TO>\Tosca_Workspaces\First Steps\ansible-poc.tcs"
       register: bvt_result
 
     - name: "5. Generate BVT report..."
-      ansible.builtin.shell: npm run report-ci
-      changed_when: false
+      debug:
+        var: bvt_result.stdout
 
     - name: "6. Throw on BVT failure..."
       ansible.builtin.fail:

@@ -1,0 +1,8 @@
+// 1. navigate to execution list
+jumptonode "/Execution/ExecutionLists/Automated/Regression Suite For Medicare checks"
+
+// 2. start execution list
+task run
+
+// 3. save results
+save
