@@ -1,32 +1,25 @@
 - name: Upgrade managed RHEL nodes
-  hosts: localhost
+  hosts: managed
   gather_facts: false
-  vars:
-    managed_nodes:
-      - node_1
-      - node_2
-      - node_3
 
   tasks:
     - name: "1. Shut down services..."
       ansible.builtin.debug:
-        msg: "→ ⛔ {{ item }} :: systemctl stop ..."
-      delegate_to: "{{ item }}"
-      loop: "{{ managed_nodes }}"
+        msg: "→ ⛔ {{ inventory_hostname }} :: systemctl stop ..."
 
     - name: "2. Upgrade packages..."
-      ansible.builtin.pause:
-        seconds: 3
-        prompt: "→ ⏳ {{ item }} :: apt update && apt upgrade ..."
-      delegate_to: "{{ item }}"
-      loop: "{{ managed_nodes }}"
+      ansible.builtin.debug:
+        msg: "→ ⏳ {{ inventory_hostname }} :: apt update && apt upgrade ..."
 
     - name: "3. Start up services..."
       ansible.builtin.debug:
-        msg: "→ 🚀 {{ item }} :: systemctl start ..."
-      delegate_to: "{{ item }}"
-      loop: "{{ managed_nodes }}"
+        msg: "→ 🚀 {{ inventory_hostname }} :: systemctl start ..."
 
+- name: Run BVT on localhost
+  hosts: local
+  gather_facts: false
+
+  tasks:
     - name: "4. Execute BVT..."
       ansible.builtin.shell: npm run test-ci
       ignore_errors: true
