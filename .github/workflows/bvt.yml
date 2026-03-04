@@ -27,7 +27,7 @@ jobs:
           npm install
           npm run pretest
       - name: Run playbook
-        run: ansible-playbook playbook.yml -i inventory.ini
+        run: ansible-playbook playbook-ci.yml -i inventory.ini
       - name: Serve report
         if: always()
         uses: peaceiris/actions-gh-pages@v4

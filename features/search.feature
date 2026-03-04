@@ -21,5 +21,5 @@ Feature: Search
       | category             | query_string        | article                                |
       | Individuals          | age pension         | How to claim Age Pension               |
       | Health professionals | medicare incentives | MyMedicare incentives                  |
-      | Businesses           | employer reporting  | Employment verification reports        |
+      | Businesses           | employer reporting  | Employer reporting service             |
       | Community group      | volunteering        | Providing documents for voluntary work |

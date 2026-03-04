@@ -28,13 +28,13 @@
       loop: "{{ managed_nodes }}"
 
     - name: "4. Execute BVT..."
-      ansible.builtin.shell: npm run test
+      ansible.builtin.shell: npm run test-ci
       ignore_errors: true
       changed_when: false
       register: bvt_result
 
     - name: "5. Generate BVT report..."
-      ansible.builtin.shell: npm run report
+      ansible.builtin.shell: npm run report-ci
       changed_when: false
 
     - name: "6. Throw on BVT failure..."

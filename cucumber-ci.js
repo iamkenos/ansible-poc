@@ -5,7 +5,7 @@ exports.default = configure({
   browserOptions: {
     instance: "chromium",
     headless: true,
-    recordVideo: true,
+    recordVideo: false,
   },
   timeout: 5 * 1000,
   parallel: 10,

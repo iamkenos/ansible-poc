@@ -10,7 +10,7 @@ export class Header extends Component {
   themeSelectorBtn = (theme: string) => this.themeSelector().locator(`//*[@data-lit-dark-mode-toggle-button='${theme}']`);
 
   searchToggle = () => this.locator("//*[@id='lit-search-toggle']");
-  searchModal = () => this.locator("//*[@id='lit-search-modal']");
+  searchModal = () => this.page().locator("//*[@id='lit-search-modal']");
   searchInput = () => this.searchModal().locator("//*[@name='search']");
   searchBtn = () => this.searchModal().locator("//button", { hasText: "Search" });
 
